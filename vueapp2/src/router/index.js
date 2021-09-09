@@ -53,6 +53,12 @@ const routes = [
     name: 'ToDosList',
     // lazy load page
     component: () => import('../components/todos/ToDosList.vue')
+  },
+  {
+    path: '/todoscreate',
+    name: 'ToDosCreate',
+    // lazy load page
+    component: () => import('../components/todos/ToDosCreate.vue')
   }
 ]
 

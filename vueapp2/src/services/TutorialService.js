@@ -5,7 +5,7 @@ class TutorialService {
     return http.get("/todos");
   }
 
-  getToDos(id) {
+  getToDosById(id) {
     return http.get(`/todos/${id}`);
   }
 

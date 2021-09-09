@@ -10,6 +10,7 @@
       <router-link to="/users">Users</router-link> | 
       <router-link to="/posts">Posts</router-link> | 
       <router-link to="/todoslist">ToDos</router-link> | 
+      <router-link to="/todoscreate">ToDos Create</router-link> | 
       <router-link to="/product">Product</router-link>
     </div>
     <router-view/>
@@ -23,6 +24,7 @@
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
   color: black;
+  margin-left: 3%;
 }
 
 #nav {
