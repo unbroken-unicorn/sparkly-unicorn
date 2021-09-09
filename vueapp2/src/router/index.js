@@ -2,9 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Profile from '../views/Profile.vue'
+// import VeeValidate from 'vee-validate';
 
-
+// validate plugins
 Vue.use(VueRouter)
+// Vue.use(VeeValidate);
 
 const routes = [
   {
@@ -30,15 +32,27 @@ const routes = [
     // lazy load page
     component: () => import('../views/Posts.vue')
   },
-  { path: '/product/:id/:category', 
+  {
+    path: '/product',
+    name: 'product',
     // lazy load page
-    component: () => import('../views/Product.vue')
+    component: () => import('../components/Product.vue')
   },
+  // { path: '/product/:id/:category', 
+  //   // lazy load page
+  //   component: () => import('../components/Product.vue')
+  // },
   {
     path: '/about',
     name: 'About',
     // lazy load page
     component: () => import('../views/About.vue')
+  },
+  {
+    path: '/todoslist',
+    name: 'ToDosList',
+    // lazy load page
+    component: () => import('../components/todos/ToDosList.vue')
   }
 ]
 

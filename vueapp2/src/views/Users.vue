@@ -38,6 +38,7 @@
             .then(results => {
                 //  JSON responses automatically parsed
                 this.users = results.data;
+                console.log('Getting Users');
                 console.dir(this.users);
             })
     }

@@ -8,7 +8,9 @@
         Profile
       </router-link> | 
       <router-link to="/users">Users</router-link> | 
-      <router-link to="/posts">Posts</router-link>
+      <router-link to="/posts">Posts</router-link> | 
+      <router-link to="/todoslist">ToDos</router-link> | 
+      <router-link to="/product">Product</router-link>
     </div>
     <router-view/>
   </div>
@@ -19,8 +21,8 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  /* text-align: center; */
+  color: black;
 }
 
 #nav {
@@ -34,5 +36,21 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.field {
+  margin-top: 2%;
+}
+
+h3 {
+  margin-bottom: 1%;
+}
+
+h2 {
+  margin-bottom: 1%;
 }
 </style>
