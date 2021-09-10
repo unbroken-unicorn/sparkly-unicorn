@@ -82,6 +82,7 @@ export default {
             .then(results => {
                 //  JSON responses automatically parsed
                 this.todoCreated = results.data;
+                this.submitted - true;
                 console.dir('createToDos');
                 console.dir(this.todoCreated);
             })

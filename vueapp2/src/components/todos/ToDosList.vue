@@ -4,24 +4,61 @@
 
     <form>
         <div class="field">
-        <label class="label">Enter ToDo Id:</label>
+        <label class="label">Update/Remove ToDo By Id:</label>
         <div class="control">
             <input name="todoId" class="input" type="text" placeholder="" v-model="todosForm.todoId">
         </div>
       </div>
 
+      <!-- <p>
+        <button v-on:click.once.prevent="getTodosById">Update</button>
+      </p> -->
       <p>
-        <button v-on:click.once.prevent="getTodosById">Submit</button>
+        <button v-on:click.once.prevent="updateToDos">Update</button>
+        <button v-on:click.once="removeToDo">Remove</button>
       </p>
     </form>
 
 
-    
+    <form>
+        <div class="field">
+        <label class="label">Update ToDo By Title:</label>
+        <div class="control">
+            <input name="todotTitle" class="input" type="text" placeholder="" v-model="todosForm.todotTitle">
+        </div>
+      </div>
 
-    <div v-show="todoById">
-        <h4>Select ToDo:</h4>
-        <p><strong>{{ todoById.id }}. {{ todoById.title }}</strong> - Completed: {{ todoById.completed}}</p>
-    </div>
+      <p>
+        <button v-on:click.once.prevent="getTodosByTitle">Update</button>
+      </p>
+    </form>
+
+
+
+    <section class="form" v-if="submitted===true">
+        <form>  
+        <div class="field">
+            <label class="label">ToDo Completed ?</label>
+            <p><strong>{{ todoById.id }}. {{ todoById.title }} (user: {{ todoById.userId }})</strong></p>
+            <div class="control">
+                <label class="radio">
+                    <input type="radio" name="todoCompleted" value="true" v-model="todoById.completed">
+                    True
+                </label>
+                <label class="radio">
+                    <input type="radio" name="todoCompleted" value="false" v-model="todoById.completed">
+                    False
+                </label>
+            </div>
+        </div>
+
+        <p>
+        <button v-on:click.once="postTodo">Submit</button>
+      </p>
+
+
+        </form>
+    </section>
 
 
 
@@ -33,6 +70,8 @@
           
       </li>
   </ul>
+
+
 </div>
 </template>
 
@@ -51,10 +90,17 @@ export default {
                 published: false
             },
             submitted: false,
-            todoById: '',
+            todoById: {
+                id: '',
+                title: '',
+                userId: '',
+                completed: ''
+            },
             todosForm: {
-                todoId: ''
-            }
+                todoId: '',
+                todotTitle: ''
+            },
+            updateToDoById: ''
         };
     },
     // fetches users when component is created
@@ -63,7 +109,7 @@ export default {
             .then(results => {
                 //  JSON responses automatically parsed
                 this.todos = results.data;
-                console.dir('Getting todos');
+                console.log('Getting todos');
                 console.dir(this.todos);
             })
             .catch(e => {
@@ -72,13 +118,60 @@ export default {
 
     },
     methods: {
+        updateToDos() {
+            this.getTodosById();
+            this.submitted = true;
+        },
+        removeToDo() {
+            this.getTodosById();
+            TutorialService.deleteToDos(this.todoById.id)
+            .then(results => {
+                //  JSON responses automatically parsed
+                this.todoRemoved = results.data;
+                console.log('todoRemoved');
+                console.dir(this.todoRemoved);
+            })
+        },
         getTodosById() {
             TutorialService.getToDosById(this.todosForm.todoId)
             .then(results => {
                 //  JSON responses automatically parsed
                 this.todoById = results.data;
-                console.dir('Getting todoById');
+                console.log('Getting todoById');
                 console.dir(this.todoById);
+            })
+            .catch(e => {
+                this.errors.push(e)
+            })
+        },
+        getTodosByTitle() {
+            console.log('Title:' + this.todosForm.todotTitle);
+            TutorialService.findByTitleToDos(this.todosForm.todotTitle)
+            .then(results => {
+                //  JSON responses automatically parsed
+                this.todoById = results.data;
+                console.log('Getting todoByTitle');
+                // this.todoById.forEach(value => { 
+                    
+                //         value.forEach((i,k) => {
+                //             console.log('Value: ' + i + " Key: " + k);
+                //         }); 
+                // });
+                
+                this.submitted = true;
+            })
+            .catch(e => {
+                this.errors.push(e)
+            })
+        },
+        postTodo() {
+            TutorialService.updateToDos(this.todoById.id, this.todoById)
+            .then(results => {
+                //  JSON responses automatically parsed
+                this.updateToDoById = results.data;
+                console.dir('updating todoById');
+                console.dir(this.updateToDoById);
+                alert("ToDo has been updated");
             })
             .catch(e => {
                 this.errors.push(e)
