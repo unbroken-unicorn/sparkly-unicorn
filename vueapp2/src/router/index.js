@@ -55,11 +55,22 @@ const routes = [
     component: () => import('../components/todos/ToDosList.vue')
   },
   {
+    path: '/todosupdate',
+    name: 'ToDosUpdate',
+    // lazy load page
+    component: () => import('../components/todos/ToDosUpdate.vue')
+  },
+  {
     path: '/todoscreate',
     name: 'ToDosCreate',
     // lazy load page
     component: () => import('../components/todos/ToDosCreate.vue')
-  }
+  },
+  // {
+  //   name: 'ToDosModal',
+  //   // lazy load page
+  //   component: () => import('../components/todos/ToDosModal.vue')
+  // },
 ]
 
 const router = new VueRouter({
